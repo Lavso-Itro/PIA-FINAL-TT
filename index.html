@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+ <html lang="es">
+ <head>
+   <meta charset="UTF-8" />
+   <title>Aplicación Descentralizada</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+ </head>
+ <body class="bg-gray-100 text-gray-800 font-sans p-6">
+   <div class="max-w-4xl mx-auto space-y-10">
+     <h1 class="text-3xl font-bold text-center text-blue-700">🔐 Mensajería con Firmas Digitales</h1>
+     <!-- BUSCADOR DE NODOS -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-2">🌐 Nodos Conectados</h2>
+       <button onclick="verNodos()" class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Mostrar</button>
+       <pre id="nodos_vecinos" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+     </section>
+     <!-- MOSTRADOR DE CLAVES -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-2">🔑 Generador de Claves</h2>
+       <button class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="cargarClaves()">Mostrar</button>
+       <p class="mt-2"><strong>ID del nodo:</strong> <span id="nodo_id"></span></p>
+       <pre id="claves" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+     </section>
+     <!-- FIRMA DE MENSAJES -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-2">💬 Mensaje a Firmar</h2>
+       <form onsubmit="event.preventDefault(); firmarMensaje();">
+  <label for="mensaje">Escribe tu mensaje...</label>
+  <textarea id="mensaje" placeholder="Escribe tu mensaje..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+
+  <div class="mt-2">
+    <input type="checkbox" id="usar_cifrado" class="mr-2">
+    <label for="usar_cifrado">🔒 Cifrar el mensaje con contraseña</label>
+  </div>
+
+  <div class="mt-2 hidden" id="campo_password">
+    <label for="password_mensaje">Contraseña:</label>
+    <input type="password" id="password_mensaje" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+
+  <br>
+  <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Firmar</button>
+</form>
+       <pre id="firma" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+     </section>
+     <!-- DESCIFRAR MENSAJE -->
+     <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-2">🔓 Descifrar Mensaje Cifrado</h2>
+      <label for="mensaje_cifrado">Mensaje Cifrado (Base64):</label>
+      <textarea id="mensaje_cifrado" placeholder="Mensaje cifrado en base64" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+
+      <label for="password_descifrado" class="mt-4 block">Contraseña:</label>
+      <input type="password" id="password_descifrado" placeholder="Contraseña usada para cifrado" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+      <button onclick="descifrarMensaje()" class="bg-blue-600 text-white py-2 px-4 rounded mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Descifrar</button>
+
+      <pre id="resultado_descifrado" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+    </section>
+     <!-- ENVIAR TRANSACCION -->
+     <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-2">📩 Enviar Transacción</h2>
+        <form onsubmit="event.preventDefault(); enviarTransaccion();">
+        <p class="mt-2"><strong>Clave Publica:</strong></p>
+        <br>
+        <label for="clave_publica">Clave Publica</label>
+        <textarea id="clave_publica" placeholder="Clave pública" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+        <br>
+        <label for="firma_texto">Firma Generada</label>
+        <p class="mt-2"><strong>Firma Generada:</strong></p>
+        <br>
+        <textarea id="firma_texto" placeholder="Firma generada" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+        <br>
+        <p class="mt-2"><strong>Mensaje Firmado:</strong></p>
+        <br>
+        <label for="mensaje_tx">Mensaje Firmado</label>
+        <textarea id="mensaje_tx" placeholder="Mensaje firmado" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+        <br>
+        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Enviar</button>
+        </form>
+        <pre id="transaccion_resultado" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+      </section>
+     <!-- BLOCKCHAIN -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-2">🔗 Blockchain</h2>
+       <button class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="verBlockchain()">Ver</button>
+       <pre id="blockchain" class="bg-gray-100 p-2 rounded mt-2 overflow-auto whitespace-pre-wrap break-words"></pre>
+     </section>
+     <!-- VALIDADOR DE BLOCKCHAIN -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-2">✅ Validar Blockchain</h2>
+       <button class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="validarBlockchain()">Validar</button>
+       <pre id="validacion_resultado" class="bg-gray-100 p-2 rounded mt-2"></pre>
+     </section>
+     <!-- GOBERNANZA -->
+     <section class="bg-white p-6 rounded-lg shadow">
+       <h2 class="text-xl font-semibold mb-4">🗨️ Comentarios</h2>
+       <label for="comentario">Comentario</label>
+       <textarea id="comentario" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y" placeholder="Escribe un comentario..."></textarea>
+       <br>
+       <button onclick="guardarComentario()" class="bg-blue-600 text-white py-2 px-4 rounded mt-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Guardar Comentario</button>
+       <div id="comentarios_guardados" class="mt-4 space-y-2"></div>
+     </section>
+   </div>
+   <script>
+     async function descifrarMensaje() {
+  const mensaje = document.getElementById("mensaje_cifrado").value.trim();
+  const password = document.getElementById("password_descifrado").value;
+
+  if (!mensaje || !password) {
+    alert("⚠️ Por favor, llena ambos campos.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/descifrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mensaje: mensaje, password: password })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      document.getElementById("resultado_descifrado").textContent = "❌ " + data.error;
+    } else {
+      document.getElementById("resultado_descifrado").textContent = "✅ Mensaje descifrado:\n" + data.mensaje_descifrado;
+    }
+
+  } catch (e) {
+    console.error("Error:", e);
+    alert("❌ Error al intentar descifrar el mensaje.");
+  }
+}
+
+
+     async function cargarClaves() {
+       const res = await fetch("/claves");
+       const data = await res.json();
+       document.getElementById("claves").textContent = JSON.stringify(data, null, 2);
+       if (data.nodo_id) document.getElementById("nodo_id").textContent = data.nodo_id;
+       return data;
+     }
+
+     async function firmarMensaje() {
+  const mensaje = document.getElementById("mensaje").value.trim();
+  const usarCifrado = document.getElementById("usar_cifrado").checked;
+  const password = document.getElementById("password_mensaje").value;
+
+  if (!mensaje) {
+    alert("⚠️ Por favor, escribe un mensaje antes de firmarlo.");
+    return;
+  }
+
+  if (usarCifrado && !password) {
+    alert("⚠️ Por favor, introduce una contraseña para cifrar el mensaje.");
+    return;
+  }
+
+  const res = await fetch("/firmar", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      mensaje: mensaje,
+      cifrar: usarCifrado,
+      password: password
+    })
+  });
+
+  const data = await res.json();
+
+  if (data.error) {
+    alert("❌ " + data.error);
+    return;
+  }
+
+  document.getElementById("firma").textContent = JSON.stringify(data, null, 2);
+  document.getElementById("mensaje_tx").value = data.mensaje;
+  const claves = await cargarClaves();
+  document.getElementById("clave_publica").value = claves.clave_publica || '';
+  document.getElementById("firma_texto").value = data.firma || '';
+  alert("✅ Mensaje firmado" + (usarCifrado ? " y cifrado" : "") + " correctamente");
+}
+     async function enviarTransaccion() {
+          const mensaje = document.getElementById("mensaje_tx").value;
+          const clave_publica = document.getElementById("clave_publica").value;
+          const firma = document.getElementById("firma_texto").value;
+
+          mostrarSpinner();
+          try {
+            const res = await fetch("/transaccion", {
+              method: "POST",
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ mensaje, clave_publica, firma })
+            });
+
+            const data = await res.json();
+            document.getElementById("transaccion_resultado").textContent = JSON.stringify(data, null, 2);
+            alert("✅ Transacción enviada correctamente");
+          } catch (error) {
+            console.error("Error al enviar transacción:", error);
+            alert("❌ Ocurrió un error al enviar la transacción");
+          } finally {
+            ocultarSpinner();
+          }
+        }
+
+     async function verBlockchain() {
+      mostrarSpinner();
+      try {
+        const res = await fetch("/chain");
+        const data = await res.json();
+        document.getElementById("blockchain").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        console.error("Error al obtener blockchain:", err);
+        alert("⚠️ Error al obtener blockchain");
+      } finally {
+        ocultarSpinner();
+      }
+}
+
+     async function verNodos() {
+       const res = await fetch("/nodos");
+       const data = await res.json();
+       document.getElementById("nodos_vecinos").textContent = JSON.stringify(data, null, 2);
+     }
+
+     async function validarBlockchain() {
+       const res = await fetch("/validar");
+       const data = await res.json();
+       document.getElementById("validacion_resultado").textContent = JSON.stringify(data, null, 2);
+     }
+
+          // Comentarios con localStorage
+       async function guardarComentario() {
+     const input = document.getElementById("comentario");
+     const texto = input.value.trim();
+     if (!texto) return alert("⚠️ El comentario no puede estar vacío.");
+
+     try {
+      const res = await fetch("/comentarios", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({ texto })
+      });
+       const data = await res.json();
+      input.value = "";
+      alert("✅ Comentario guardado");
+       mostrarComentarios();
+     } catch (e) {
+        console.error("Error al guardar comentario:", e);
+        alert("❌ No se pudo guardar el comentario.");
+    }
+    }
+
+         async function mostrarComentarios() {
+     const contenedor = document.getElementById("comentarios_guardados");
+     contenedor.innerHTML = "<p class='text-gray-500'>Cargando comentarios...</p>";
+      try {
+      const res = await fetch("/comentarios");
+      const comentarios = await res.json();
+
+      // 🔍 Eliminar duplicados por ID
+      const unicos = {};
+       comentarios.forEach(c => {
+        if (!unicos[c.id]) unicos[c.id] = c;
+      });
+
+     const listaFinal = Object.values(unicos);
+
+      if (listaFinal.length === 0) {
+       contenedor.innerHTML = "<p class='text-gray-500'>No hay comentarios aún.</p>";
+         return;
+      }
+
+    contenedor.innerHTML = listaFinal.map(c => `
+        <div class="bg-gray-200 p-2 rounded">
+         <strong>${c.autor || "desconocido"}</strong> - ${c.fecha}: ${c.texto}
+     </div>
+    `).join("");
+
+     } catch (e) {
+       console.error("Error al obtener comentarios:", e);
+       contenedor.innerHTML = "<p class='text-red-500'>Error al cargar comentarios.</p>";
+      }
+    }
+
+     function mostrarSpinner() {
+        document.getElementById("spinner").classList.remove("hidden");
+     }
+
+     function ocultarSpinner() {
+        document.getElementById("spinner").classList.add("hidden");
+     }
+
+     // Mostrar al cargar
+     mostrarComentarios();
+     document.getElementById("usar_cifrado").addEventListener("change", function () {
+      const passField = document.getElementById("campo_password");
+      passField.classList.toggle("hidden", !this.checked);
+    });
+ </script>
+ <div id="spinner" class="fixed top-0 left-0 w-full h-full bg-white bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+</div>
+ </body>
+ </html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Autenticación Blockchain</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .auth-tab {
+      cursor: pointer;
+      padding: 10px 20px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .auth-tab.active {
+      border-bottom-color: #3b82f6;
+      font-weight: 600;
+      color: #3b82f6;
+    }
+    .auth-tab:hover:not(.active) {
+      color: #1e40af;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-8 rounded-lg shadow-md w-96">
+    <h1 class="text-2xl font-bold text-center mb-6 text-blue-600">🔐 Acceso a Nodo Blockchain</h1>
+
+    <div class="flex border-b mb-6">
+      <div id="login-tab" class="auth-tab {% if not clave_enc %}active{% endif %}">Iniciar Sesión</div>
+      <div id="register-tab" class="auth-tab {% if clave_enc %}text-gray-500{% else %}text-gray-500{% endif %} {% if clave_enc %}active{% endif %}">Registrarse</div>
+    </div>
+
+    <!-- FORMULARIO LOGIN -->
+    <form method="POST" id="login-form" enctype="multipart/form-data" class="{% if clave_enc %}hidden{% endif %}">
+        {% if login_error %}
+        <div class="text-red-600 text-sm mb-4">{{ login_error }}</div>
+        {% endif %}
+
+      <input type="hidden" name="accion" value="login">
+      <div class="mb-4">
+        <label for="clave_enc" class="block text-gray-700 mb-2">Clave cifrada (.enc)</label>
+        <input type="file" id="clave_enc" name="clave_enc" accept=".enc"
+       class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+       required>
+
+      </div>
+      <div class="mb-4">
+        <label for="login-password" class="block text-gray-700 mb-2">Contraseña</label>
+        <input type="password" id="login-password" name="password"
+               class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Contraseña para descifrar clave" required>
+      </div>
+      <button type="submit"
+              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200">
+        Iniciar Sesión
+      </button>
+    </form>
+
+    <!-- FORMULARIO REGISTRO -->
+    <form method="POST" id="register-form" class="{% if not clave_enc %}hidden{% endif %}">
+        {% if registro_error %}
+        <div class="text-red-600 text-sm mb-4">{{ registro_error }}</div>
+        {% endif %}
+
+      <input type="hidden" name="accion" value="registrar">
+      <div class="mb-6">
+        <label for="register-password" class="block text-gray-700 mb-2">Contraseña para cifrar clave</label>
+        <input type="password" id="register-password" name="password"
+               class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+               placeholder="Crea una contraseña segura" required>
+      </div>
+      <button type="submit"
+              class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-200">
+        Crear Claves
+      </button>
+    </form>
+
+    <!-- ENLACES DE DESCARGA TRAS REGISTRO -->
+    {% if clave_enc and clave_pub %}
+    <div class="mt-6 text-center text-sm text-green-600">
+      <p class="mb-2">✅ Claves generadas con éxito. Descárgalas y guárdalas con seguridad:</p>
+      <a href="/{{ clave_enc }}" download class="block text-blue-600">⬇️ clave.enc (privada)</a>
+      <a href="/{{ clave_pub }}" download class="block text-blue-600">⬇️ clave.pub (pública)</a>
+      <p class="mt-2 text-gray-500">Luego puedes iniciar sesión usando tu clave y contraseña.</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    const loginTab = document.getElementById("login-tab");
+    const registerTab = document.getElementById("register-tab");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      registerTab.classList.remove("active", "text-blue-600");
+      registerTab.classList.add("text-gray-500");
+      loginForm.classList.remove("hidden");
+      registerForm.classList.add("hidden");
+    });
+
+    registerTab.addEventListener("click", () => {
+      registerTab.classList.add("active");
+      loginTab.classList.remove("active", "text-blue-600");
+      loginTab.classList.add("text-gray-500");
+      registerForm.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+    });
+  </script>
+</body>
+</html>
+
+
+
+
