@@ -1,0 +1,122 @@
+[
+    {
+        "indice": 0,
+        "timestamp": 1746776272.571969,
+        "fecha_legible": "2025-05-09 01:37:52",
+        "transacciones": [],
+        "prev_hash": "0",
+        "hash": "ec52df674f01893c37a1d9335341ea63f11b8d189f604f07b0f09eb146f318ee"
+    },
+    {
+        "indice": 1,
+        "timestamp": 1746776361.1828015,
+        "fecha_legible": "2025-05-09 01:39:21",
+        "transacciones": [
+            {
+                "mensaje": "Ejemplo desde nodo 5000",
+                "firma": "YnJCJABt4ednOhp16rROX99nj9JmAdKShaOrvAzwZRKTyElzYp9dXbZYfsApJDmc2+4BGt0fkIEuXZbG9ae2vQ==",
+                "clave_publica": "YoC5+6H7UaCO7mzw3szJHIEj+5N1DSsZVoTCsnCuY6aPEfZC3378QuUp01KXDVWy/p3GcaZbDik+2UYi547VXg=="
+            }
+        ],
+        "prev_hash": "ec52df674f01893c37a1d9335341ea63f11b8d189f604f07b0f09eb146f318ee",
+        "hash": "1cddd344b0831f7d753aa885c5f2c814d3a87e5cb082ad7e46e6e11ffdcb555a"
+    },
+    {
+        "indice": 2,
+        "timestamp": 1746776426.4267159,
+        "fecha_legible": "2025-05-09 01:40:26",
+        "transacciones": [
+            {
+                "mensaje": "1wXgj0P+qNVi22bZaEYelUKPVImaYbfvaEPOcKAq+K/cXkmQGyF+UCNPhS3qqHq/ISgln71qLw==",
+                "firma": "Ziqd+PVAjvFpqS8ersp7buRrA5zhva71AIrxEH6SoaVVxT3M7FCruWgh18TDgxCmkmQlD04QbKQuGGEhRQCZDQ==",
+                "clave_publica": "YoC5+6H7UaCO7mzw3szJHIEj+5N1DSsZVoTCsnCuY6aPEfZC3378QuUp01KXDVWy/p3GcaZbDik+2UYi547VXg=="
+            }
+        ],
+        "prev_hash": "1cddd344b0831f7d753aa885c5f2c814d3a87e5cb082ad7e46e6e11ffdcb555a",
+        "hash": "37a6782292f3c3d589eaa8515da6ce78b2471b359827efb374bfd70eaa2f38b3"
+    },
+    {
+        "indice": 3,
+        "timestamp": 1746776502.7815776,
+        "fecha_legible": "2025-05-09 01:41:42",
+        "transacciones": [
+            {
+                "mensaje": "Ejemplo desde nodo 5001",
+                "firma": "usDBU2zmYGbzTDAWfH9eTQDEALbnSW2ssSJmHWp0x2hKyQ5QpmWnlvj+WJ7GaPWSLdxwYfE62VUe9tPmUWNwvQ==",
+                "clave_publica": "pMMV7n3ekoOk+nypxYozPPBKnBvLGN0RPbTebKWDmYXLJdLhEsoWjAAZRtmHga0k7f4P6xnz5+i2B3L5cBaIuw=="
+            }
+        ],
+        "prev_hash": "37a6782292f3c3d589eaa8515da6ce78b2471b359827efb374bfd70eaa2f38b3",
+        "hash": "789384315e7885a0423d3b035aec56eadbf965a46f991fbae01a7580c5434c2a"
+    },
+    {
+        "indice": 4,
+        "timestamp": 1746776562.9248674,
+        "fecha_legible": "2025-05-09 01:42:42",
+        "transacciones": [
+            {
+                "mensaje": "jjY51xmPB9R75wy2nSlHcofr2bPc0CY1gm6Df2/6G2+q55y+FgujKbAyOHfqsjU2d4idziyjFw==",
+                "firma": "n4UMZECoyfXpemA6kGBny+gL/rKgZDbO9Jnvjx0dsX0qjnwRsSHrc0iEzPwW0yxJ6qSyT9dCApW0hzlNkehlnA==",
+                "clave_publica": "pMMV7n3ekoOk+nypxYozPPBKnBvLGN0RPbTebKWDmYXLJdLhEsoWjAAZRtmHga0k7f4P6xnz5+i2B3L5cBaIuw=="
+            }
+        ],
+        "prev_hash": "789384315e7885a0423d3b035aec56eadbf965a46f991fbae01a7580c5434c2a",
+        "hash": "ead92d4b584ff4657072e4b89337ef941a1d3380af72d70184b1b31ec1a1c717"
+    },
+    {
+        "indice": 5,
+        "timestamp": 1746776752.3220875,
+        "fecha_legible": "2025-05-09 01:45:52",
+        "transacciones": [
+            {
+                "mensaje": "Ejemplo desde nodo 5002",
+                "firma": "+/82htRF53DuCTL+27HCIvywxqfwuk4vZcJQkIE6GcswroPwfPJsGQ4SxlXtRGLWhjmCnU+G9sFlFTkmwVXu5A==",
+                "clave_publica": "0nFbE78NUyNGDJ9WdzWOuonPR+cxwfuRR5BP/RX24i1MypDraGtyEyV4fhApMbl6g9FbWne9VIjENF6+lGxtsg=="
+            }
+        ],
+        "prev_hash": "ead92d4b584ff4657072e4b89337ef941a1d3380af72d70184b1b31ec1a1c717",
+        "hash": "f42c1a987dd2bfdb931c03f6ef6387f3594398a75a072b0482db7c1b7cf7ad27"
+    },
+    {
+        "indice": 6,
+        "timestamp": 1746776812.4489589,
+        "fecha_legible": "2025-05-09 01:46:52",
+        "transacciones": [
+            {
+                "mensaje": "rih5l8p8Tm29q5qqeRJNciZRCty6vP6wnWJlq8stUm4tpkQRszq/oRbZWgld2pFqJ2cWqEptsg==",
+                "firma": "mEze5fL8XuwXS1D63TG47ROztstKgZuO8KzGWPxKj76Nr7d7WPFzMdN0Wiee5miNyPD2u4vlkUu54t37SvDZ0Q==",
+                "clave_publica": "0nFbE78NUyNGDJ9WdzWOuonPR+cxwfuRR5BP/RX24i1MypDraGtyEyV4fhApMbl6g9FbWne9VIjENF6+lGxtsg=="
+            }
+        ],
+        "prev_hash": "f42c1a987dd2bfdb931c03f6ef6387f3594398a75a072b0482db7c1b7cf7ad27",
+        "hash": "dea40b4778ef119b3dc9f438fbcf83e92ee8db853e765d6f2fe371ecef1aae31"
+    },
+    {
+        "indice": 7,
+        "timestamp": 1746776906.1812546,
+        "fecha_legible": "2025-05-09 01:48:26",
+        "transacciones": [
+            {
+                "mensaje": "Ejemplo desde nodo 5003",
+                "firma": "wqKPlVhBiV4vW/tnR5KRIZQ6O4SaA8Repnav9I9fVrd7zfemKW4NvjQzPSrLmIvJ0gxcDddX6tk/lMInpNzWUw==",
+                "clave_publica": "LbDi2sBrwhKTZmWZGkJPhQ/hL7YFTymVSQPEFT3JnFc9+B7ExkqywZhorWWhj7GoYYL/AkWLWX+aNekya25PqQ=="
+            }
+        ],
+        "prev_hash": "dea40b4778ef119b3dc9f438fbcf83e92ee8db853e765d6f2fe371ecef1aae31",
+        "hash": "518b55b2da7eab30fe0df477c78beae4a6b42019884aaead77e863c4e3c6a29b"
+    },
+    {
+        "indice": 8,
+        "timestamp": 1746776935.4798684,
+        "fecha_legible": "2025-05-09 01:48:55",
+        "transacciones": [
+            {
+                "mensaje": "sP0RPKivAdK1VR4yHhtYxs/Yi6AdYbcfO3bx3RN1/NwctwTyP9K2IX68+/xCahe9S6UQ4t5RiQ==",
+                "firma": "pEWN3rfrC/au1t4GcNbdwJkjRoLmv8WHmpSkQ5viAH3JCPsia2s1VGFT8F5UeaJyXP6Yz1NQ94Na9dk14bZxfA==",
+                "clave_publica": "LbDi2sBrwhKTZmWZGkJPhQ/hL7YFTymVSQPEFT3JnFc9+B7ExkqywZhorWWhj7GoYYL/AkWLWX+aNekya25PqQ=="
+            }
+        ],
+        "prev_hash": "518b55b2da7eab30fe0df477c78beae4a6b42019884aaead77e863c4e3c6a29b",
+        "hash": "8881d8088ede7d1ec44c9af5ce4685aa247b231d67ae8950bf09f38c6530d45c"
+    }
+]
